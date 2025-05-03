@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       padding: 0;
@@ -23,30 +24,50 @@
       background-size: 1000% 1000%;
       animation: gradientFlow 12s ease infinite;
     }
+
     @keyframes gradientFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+
     .logo {
       margin-top: 0px;
       width: 280px;
       height: auto;
       opacity: 0;
-      animation: logoFlashIn 1.2s ease-in-out 3s forwards;
     }
+
+    .flash-in {
+      animation: logoFlashIn 1.2s ease forwards;
+      animation-delay: 2.2s;
+    }
+
     @keyframes logoFlashIn {
-      0% { opacity: 0; transform: scale(0.5) rotate(-15deg); filter: brightness(1.5); }
-      50% { opacity: 1; transform: scale(1.2) rotate(5deg); filter: brightness(2); }
-      75% { transform: scale(0.95) rotate(-2deg); }
-      100% { transform: scale(1) rotate(0); filter: brightness(1); }
+      0% {
+        opacity: 0;
+        transform: scale(0.8) rotate(-20deg);
+        filter: brightness(0.5);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1) rotate(10deg);
+        filter: brightness(1.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1);
+      }
     }
+
     main {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 30px;
     }
+
     .headline {
       font-size: 1.5rem;
       font-weight: 500;
@@ -54,12 +75,14 @@
       opacity: 0;
       animation: slideFadeIn 1.3s ease forwards;
     }
+
     .gradient-text {
       background: linear-gradient(90deg, #faa632, #d53a28, #faa632);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
     }
+
     .subline-wrapper {
       display: inline-block;
       white-space: pre-wrap;
@@ -70,15 +93,18 @@
       opacity: 0;
       line-height: 1.6;
     }
+
     .char {
       display: inline-block;
       color: white;
       transition: color 0.2s ease;
     }
+
     .char.gold {
       color: #ffe066;
       text-shadow: 0 0 6px #ffe066;
     }
+
     .email-box {
       display: flex;
       justify-content: center;
@@ -93,9 +119,11 @@
       transform: translateY(20px);
       animation: slideFadeIn 1s ease 2s forwards;
     }
+
     .email-box:hover {
       box-shadow: 0 0 25px rgba(250, 166, 50, 0.4);
     }
+
     .email-input {
       padding: 0.6rem 0.8rem;
       font-size: 0.8rem;
@@ -107,9 +135,11 @@
       color: white;
       transition: background-color 0.3s;
     }
+
     .email-input:focus {
       background-color: #2a2a2a;
     }
+
     .submit-btn {
       padding: 0.8rem 1.5rem;
       font-size: 1rem;
@@ -122,10 +152,12 @@
       transition: transform 0.2s, box-shadow 0.3s;
       animation: pulse 2s infinite;
     }
+
     .submit-btn:hover {
       transform: scale(1.05);
       box-shadow: 0 0 15px #d53a28;
     }
+
     .footer {
       font-size: 0.9rem;
       margin-top: auto;
@@ -134,26 +166,30 @@
       font-weight: 500;
       text-shadow: 0 0 10px rgba(250, 166, 50, 0.5);
       opacity: 0;
-      transform: translateY(0);
       animation: fadeIn 1s ease 2.5s forwards;
     }
+
     .footer.animate-jump {
       animation: jumpLoop 2s ease-in-out infinite;
       opacity: 1 !important;
     }
+
     @keyframes jumpLoop {
       0%, 100% { transform: translateY(0); }
       20% { transform: translateY(-10px); }
       40% { transform: translateY(0); }
     }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
     @keyframes slideFadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
     @keyframes pulse {
       0%, 100% { box-shadow: 0 0 15px #d53a28; }
       50% { box-shadow: 0 0 25px #faa632; }
@@ -165,19 +201,21 @@
     <source src="audio/click.wav" type="audio/wav">
   </audio>
 
-  <img src="logo.png" alt="DareMe Logo" class="logo" />
+  <img src="logo.png" alt="DareMe Logo" class="logo flash-in" />
+
   <main>
     <div class="headline">
       <span class="gradient-text">The games begin soon, dare to be first?</span>
     </div>
     <div class="subline-wrapper" id="gold-wave-text"></div>
     <form action="https://formsubmit.co/dareme050225@gmail.com" method="POST" class="email-box">
-      <input type="hidden" name="_next" value="https://balalanca.github.io/dareme-app?submitted=true">
+      <input type="hidden" name="_next" value="https://balalanca.github.io/dareme-app/?submitted=true">
       <input type="hidden" name="_captcha" value="false">
       <input type="email" name="email" class="email-input" placeholder="Enter your email" required />
       <button class="submit-btn" type="submit">Notify Me</button>
     </form>
   </main>
+
   <div class="footer" id="footer">Dare accepted? Prove it. We're launching soon.</div>
 
   <div id="popup-modal" class="popup-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;z-index:9999;">
