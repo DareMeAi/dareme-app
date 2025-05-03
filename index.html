@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DareMe App Launch</title> 
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Lexend', sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      background: linear-gradient(270deg, #0f0f1a, #1b1d2a, #101015, #191a23, #121218, #0b0c10);
+      background-size: 1000% 1000%;
+      animation: gradientFlow 12s ease infinite;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .logo {
+      margin-top: 30px;
+      width: 280px;
+      height: auto;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 60px;
+    }
+
+    .headline {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: slideFadeIn 1.3s ease forwards;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #faa632, #d53a28, #faa632);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .subline-wrapper {
+      display: inline-block;
+      white-space: pre-wrap;
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      animation: fadeIn 2s ease 1s forwards;
+      opacity: 0;
+      line-height: 1.6;
+    }
+
+    .char {
+      display: inline-block;
+      color: white;
+      transition: color 0.2s ease;
+    }
+
+    .char.gold {
+      color: #ffe066;
+      text-shadow: 0 0 6px #ffe066;
+    }
+
+    .email-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 0.5rem;
+      box-shadow: 0 0 20px rgba(250, 166, 50, 0.2);
+      transition: box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideFadeIn 1s ease 2s forwards;
+    }
+
+    .email-box:hover {
+      box-shadow: 0 0 25px rgba(250, 166, 50, 0.4);
+    }
+
+    .email-input {
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px 0 0 8px;
+      width: 250px;
+      outline: none;
+      background-color: #1e1e1e;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    .email-input:focus {
+      background-color: #2a2a2a;
+    }
+
+    .submit-btn {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #faa632, #d53a28);
+      color: white;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s, box-shadow 0.3s;
+      animation: pulse 2s infinite;
+    }
+
+    .submit-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #d53a28;
+    }
+
+    .footer {
+      font-size: 1.3rem;
+      margin-top: auto;
+      padding: 2rem 0;
+      color: #faa632;
+      font-weight: 500;
+      text-shadow: 0 0 10px rgba(250, 166, 50, 0.5);
+      opacity: 0;
+      transform: translateY(0);
+      animation: fadeIn 1s ease 2.5s forwards;
+    }
+
+    .footer.animate-jump {
+      animation: jumpLoop 2s ease-in-out infinite;
+      opacity: 1 !important;
+    }
+
+    @keyframes jumpLoop {
+      0%, 100% { transform: translateY(0); }
+      20% { transform: translateY(-10px); }
+      40% { transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 15px #d53a28; }
+      50% { box-shadow: 0 0 25px #faa632; }
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #292929;
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(250, 166, 50, 0.4);
+      font-size: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    #toast.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .popup-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .popup-modal.show {
+      display: flex;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .popup-content {
+      background: #1e1e1e;
+      padding: 2rem 3rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 20px #faa632;
+      animation: bounceIn 0.4s ease-out;
+    }
+
+    .popup-content h2 {
+      color: #faa632;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    .popup-content p {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .popup-content button {
+      background: linear-gradient(135deg, #faa632, #d53a28);
+      border: none;
+      color: white;
+      font-size: 1rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .popup-content button:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      80% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="click-sound" preload="auto">
+    <source src="audio/click.wav" type="audio/wav">
+  </audio>
+
+  <!-- Logo only, no circle -->
+  <img src="logo.png" alt="DareMe Logo" class="logo" />
+
+  <main>
+    <div class="headline">
+      <span class="gradient-text">The games begin soon, dare to be first?</span>
+    </div>
+
+    <div class="subline-wrapper" id="gold-wave-text"></div>
+
+    <div class="email-box">
+      <input type="email" class="email-input" placeholder="Enter your email" required />
+      <button class="submit-btn" onclick="handleNotify()">Notify Me</button>
+    </div>
+  </main>
+
+  <div class="footer" id="footer">Dare accepted? Prove it. We're launching soon.</div>
+
+  <div id="toast">🎉 You're on the list!</div>
+
+  <!-- Modal -->
+  <div id="popup-modal" class="popup-modal">
+    <div class="popup-content">
+      <h2 id="popup-title">🎉 Congratulations!</h2>
+      <p id="popup-message">You're entry number X on the list.</p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const clickSound = document.getElementById('click-sound');
+    const toast = document.getElementById('toast');
+    const footer = document.getElementById('footer');
+
+    function handleNotify() {
+      const emailInput = document.querySelector('.email-input');
+      const email = emailInput.value.trim();
+      const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      try {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      } catch (e) {
+        console.warn("Click sound blocked", e);
+      }
+
+      if (!isValidEmail) {
+        toast.textContent = "❌ Invalid email";
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+        return;
+      }
+
+      fetch('http://localhost:5000/submit-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.message.includes("already")) {
+          toast.textContent = "⚠️ Email already submitted";
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 3000);
+        } else if (data.entry) {
+          document.getElementById('popup-title').textContent = "🎉 Congratulations!";
+          document.getElementById('popup-message').textContent =
+            `You're entry number ${data.entry} on the list.`;
+          document.getElementById('popup-modal').classList.add('show');
+        }
+      })
+      .catch(err => {
+        toast.textContent = "⚠️ Could not save email";
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      });
+    }
+
+    function closePopup() {
+      document.getElementById('popup-modal').classList.remove('show');
+    }
+
+    setTimeout(() => {
+      footer.classList.add('animate-jump');
+    }, 3500);
+
+    const waveContainer = document.getElementById('gold-wave-text');
+    const waveText = "Join the Dare Circle – daily dares, bragging rights, and bonding moments.";
+    const spanArray = [];
+
+    waveText.split('').forEach((char) => {
+      const span = document.createElement('span');
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.classList.add('char');
+      waveContainer.appendChild(span);
+      spanArray.push(span);
+    });
+
+    let waveIndex = 0;
+    const WAVE_SIZE = 8;
+    setInterval(() => {
+      spanArray.forEach(span => span.classList.remove('gold'));
+      for (let i = 0; i < WAVE_SIZE; i++) {
+        const index = (waveIndex + i) % spanArray.length;
+        spanArray[index].classList.add('gold');
+      }
+      waveIndex = (waveIndex + 1) % spanArray.length;
+    }, 80);
+  </script>
+</body>
+</html>
