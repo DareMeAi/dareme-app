@@ -164,13 +164,22 @@
     </div>
     <div class="subline-wrapper" id="gold-wave-text"></div>
     <form action="https://formsubmit.co/dareme050225@gmail.com" method="POST" class="email-box">
-      <input type="hidden" name="_next" value="https://balalanca.github.io/dareme-app/index.html">
+      <input type="hidden" name="_next" value="https://balalanca.github.io/dareme-app/index.html?submitted=true">
       <input type="hidden" name="_captcha" value="false">
       <input type="email" name="email" class="email-input" placeholder="Enter your email" required />
       <button class="submit-btn" type="submit">Notify Me</button>
     </form>
   </main>
   <div class="footer" id="footer">Dare accepted? Prove it. We're launching soon.</div>
+
+  <div id="popup-modal" class="popup-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;z-index:9999;">
+    <div class="popup-content" style="background:#1e1e1e;padding:2rem 3rem;border-radius:12px;text-align:center;box-shadow:0 0 20px #faa632;">
+      <h2 style="color:#faa632;margin-bottom:1rem;font-size:2rem;">🎉 You're on the list!</h2>
+      <p style="color:white;font-size:1.2rem;margin-bottom:1.5rem;">Thanks for joining DareMe!</p>
+      <button onclick="document.getElementById('popup-modal').style.display='none'" style="background:linear-gradient(135deg,#faa632,#d53a28);border:none;color:white;font-size:1rem;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Close</button>
+    </div>
+  </div>
+
   <script>
     const clickSound = document.getElementById('click-sound');
     document.querySelector("form").addEventListener("submit", () => {
@@ -201,6 +210,12 @@
       }
       waveIndex = (waveIndex + 1) % spanArray.length;
     }, 80);
+
+    // Show popup if redirected after submission
+    const query = new URLSearchParams(window.location.search);
+    if (query.get('submitted') === 'true') {
+      document.getElementById('popup-modal').style.display = 'flex';
+    }
   </script>
 </body>
 </html>
