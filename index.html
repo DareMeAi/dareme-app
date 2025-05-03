@@ -99,7 +99,6 @@
 
     .subline-wrapper {
       display: inline-block;
-      white-space: pre-wrap;
       font-size: 0.95rem;
       font-weight: 300;
       margin-bottom: 2rem;
@@ -107,6 +106,7 @@
       opacity: 0;
       line-height: 1.6;
       max-width: 90vw;
+      word-break: break-word;
     }
 
     .char {
@@ -262,15 +262,24 @@
     }, 3500);
 
     const waveContainer = document.getElementById('gold-wave-text');
-    const waveText = "Join the Dare Circle – daily dares, bragging rights, and bonding moments.";
+    const waveText = "Join the Dare Circle<br>– daily dares, bragging rights, and bonding moments.";
     const spanArray = [];
-    waveText.split('').forEach((char) => {
-      const span = document.createElement('span');
-      span.textContent = char === ' ' ? '\u00A0' : char;
-      span.classList.add('char');
-      waveContainer.appendChild(span);
-      spanArray.push(span);
+
+    waveText.split(/(<br>)/g).forEach((part) => {
+      if (part === "<br>") {
+        const br = document.createElement('br');
+        waveContainer.appendChild(br);
+      } else {
+        part.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          span.classList.add('char');
+          waveContainer.appendChild(span);
+          spanArray.push(span);
+        });
+      }
     });
+
     let waveIndex = 0;
     const WAVE_SIZE = 8;
     setInterval(() => {
@@ -282,7 +291,6 @@
       waveIndex = (waveIndex + 1) % spanArray.length;
     }, 80);
 
-    // Show popup if redirected after submission
     const query = new URLSearchParams(window.location.search);
     if (query.get('submitted') === 'true') {
       document.getElementById('popup-modal').style.display = 'flex';
