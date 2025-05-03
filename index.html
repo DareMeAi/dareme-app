@@ -150,58 +150,6 @@
       0%, 100% { box-shadow: 0 0 15px #d53a28; }
       50% { box-shadow: 0 0 25px #faa632; }
     }
-    .popup-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    .popup-modal.show {
-      display: flex;
-      animation: fadeIn 0.3s ease-out;
-    }
-    .popup-content {
-      background: #1e1e1e;
-      padding: 2rem 3rem;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 0 20px #faa632;
-      animation: bounceIn 0.4s ease-out;
-    }
-    .popup-content h2 {
-      color: #faa632;
-      margin-bottom: 1rem;
-      font-size: 2rem;
-    }
-    .popup-content p {
-      color: white;
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-    .popup-content button {
-      background: linear-gradient(135deg, #faa632, #d53a28);
-      border: none;
-      color: white;
-      font-size: 1rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .popup-content button:hover {
-      transform: scale(1.05);
-    }
-    @keyframes bounceIn {
-      0% { transform: scale(0.5); opacity: 0; }
-      80% { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(1); }
-    }
   </style>
 </head>
 <body>
@@ -215,50 +163,22 @@
       <span class="gradient-text">The games begin soon, dare to be first?</span>
     </div>
     <div class="subline-wrapper" id="gold-wave-text"></div>
-    <form id="email-form" class="email-box">
+    <form action="https://formsubmit.co/dareme050225@gmail.com" method="POST" class="email-box">
+      <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
+      <input type="hidden" name="_captcha" value="false">
       <input type="email" name="email" class="email-input" placeholder="Enter your email" required />
       <button class="submit-btn" type="submit">Notify Me</button>
     </form>
   </main>
   <div class="footer" id="footer">Dare accepted? Prove it. We're launching soon.</div>
-  <div id="popup-modal" class="popup-modal">
-    <div class="popup-content">
-      <h2 id="popup-title">🎉 Congratulations!</h2>
-      <p id="popup-message">You're on the list!</p>
-      <button onclick="document.getElementById('popup-modal').classList.remove('show')">Close</button>
-    </div>
-  </div>
   <script>
     const clickSound = document.getElementById('click-sound');
-    const footer = document.getElementById('footer');
-
-    document.getElementById("email-form").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      try { clickSound.currentTime = 0; clickSound.play(); } catch (err) {}
-      const form = e.target;
-      const email = form.querySelector("input[name='email']").value;
-
-      const res = await fetch("https://formspree.io/f/mnndpong", {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email })
-      });
-
-      if (res.ok) {
-        document.getElementById('popup-title').textContent = "🎉 You're in!";
-        document.getElementById('popup-message').textContent = "You're on the list!";
-        document.getElementById('popup-modal').classList.add('show');
-        form.reset();
-      } else {
-        alert("❌ There was an error. Please try again later.");
-      }
+    document.querySelector("form").addEventListener("submit", () => {
+      try { clickSound.currentTime = 0; clickSound.play(); } catch (e) {}
     });
 
     setTimeout(() => {
-      footer.classList.add('animate-jump');
+      document.getElementById('footer').classList.add('animate-jump');
     }, 3500);
 
     const waveContainer = document.getElementById('gold-wave-text');
