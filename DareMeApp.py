@@ -12,6 +12,9 @@ waitlist_path = os.path.join('/tmp', 'WaitList.txt')
 def serve_index():
     return send_from_directory('.', 'index.html')
 
+
+print(f"[DEBUG] Saving to: {waitlist_path}")
+
 @app.route('/submit-email', methods=['POST'])
 def submit_email():
     data = request.get_json()
@@ -42,8 +45,9 @@ def submit_email():
                 'entry': entry_number
             })
     except Exception as e:
-        print("[✖] Error writing to file:", e)
+        print(f"[✖] Error writing to file: {repr(e)}")
         return jsonify({'message': 'Failed to write to file'}), 500
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
