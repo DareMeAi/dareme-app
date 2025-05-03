@@ -23,6 +23,7 @@
       background: linear-gradient(270deg, #0f0f1a, #1b1d2a, #101015, #191a23, #121218, #0b0c10);
       background-size: 1000% 1000%;
       animation: gradientFlow 12s ease infinite;
+      padding: 0 1rem;
     }
 
     @keyframes gradientFlow {
@@ -99,12 +100,13 @@
     .subline-wrapper {
       display: inline-block;
       white-space: pre-wrap;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 300;
       margin-bottom: 2rem;
       animation: fadeIn 2s ease 1s forwards;
       opacity: 0;
       line-height: 1.6;
+      max-width: 90vw;
     }
 
     .char {
@@ -131,6 +133,7 @@
       opacity: 0;
       transform: translateY(20px);
       animation: slideFadeIn 1s ease 2s forwards;
+      flex-wrap: wrap;
     }
 
     .email-box:hover {
@@ -143,6 +146,7 @@
       border: none;
       border-radius: 6px 0 0 6px;
       width: 250px;
+      max-width: 70vw;
       outline: none;
       background-color: #1e1e1e;
       color: white;
@@ -172,9 +176,9 @@
     }
 
     .footer {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       margin-top: auto;
-      padding: 5rem 0;
+      padding: 3rem 1rem;
       color: #faa632;
       font-weight: 500;
       text-shadow: 0 0 10px rgba(250, 166, 50, 0.5);
@@ -206,6 +210,14 @@
     @keyframes pulse {
       0%, 100% { box-shadow: 0 0 15px #d53a28; }
       50% { box-shadow: 0 0 25px #faa632; }
+    }
+
+    @media (max-width: 600px) {
+      .headline { font-size: 1.3rem; }
+      .subline-wrapper { font-size: 0.9rem; }
+      .submit-btn { font-size: 0.9rem; padding: 0.7rem 1.2rem; }
+      .email-input { width: 180px; font-size: 0.8rem; }
+      .footer { padding: 2.5rem 1rem; font-size: 0.8rem; }
     }
   </style>
 </head>
