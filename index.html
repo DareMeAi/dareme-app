@@ -83,9 +83,9 @@
     }
 
     .headline {
-      font-size: 3rem;
+      font-size: 1.8rem;
       font-weight: 500;
-      margin-bottom: 5rem;
+      margin-bottom: 3rem;
       opacity: 0;
       animation: slideFadeIn 1.3s ease forwards;
     }
@@ -213,7 +213,7 @@
     }
 
     @media (max-width: 600px) {
-      .headline { font-size: 1.6rem; }
+      .headline { font-size: 1.6rem; margin-bottom: 2.5rem; }
       .subline-wrapper { font-size: 0.9rem; }
       .submit-btn { font-size: 0.9rem; padding: 0.7rem 1.2rem; }
       .email-input { width: 180px; font-size: 0.8rem; }
@@ -246,7 +246,7 @@
   <div id="popup-modal" class="popup-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;z-index:9999;">
     <div class="popup-content" style="background:#1e1e1e;padding:2rem 3rem;border-radius:12px;text-align:center;box-shadow:0 0 20px #faa632;">
       <h2 style="color:#faa632;margin-bottom:1rem;font-size:2rem;">🎉 You're on the list!</h2>
-      <p style="color:white;font-size:1.2rem;margin-bottom:1.5rem;">Thanks for joining DareMe!</p>
+      <p id="popup-message" style="color:white;font-size:1.2rem;margin-bottom:1.5rem;">Thanks for joining DareMe!</p>
       <button onclick="document.getElementById('popup-modal').style.display='none'" style="background:linear-gradient(135deg,#faa632,#d53a28);border:none;color:white;font-size:1rem;padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;">Close</button>
     </div>
   </div>
@@ -262,7 +262,7 @@
     }, 3500);
 
     const waveContainer = document.getElementById('gold-wave-text');
-    const waveText = "Join the Dare Circle<br>Daily dares - Bragging rights - Bonding moments";
+    const waveText = "Join the Dare Circle<br>– daily dares, bragging rights, and bonding moments.";
     const spanArray = [];
 
     waveText.split(/(<br>)/g).forEach((part) => {
@@ -291,8 +291,13 @@
       waveIndex = (waveIndex + 1) % spanArray.length;
     }, 80);
 
+    // Show popup with fake entry number
     const query = new URLSearchParams(window.location.search);
     if (query.get('submitted') === 'true') {
+      const baseCount = 87;
+      const offset = Math.floor(Math.random() * 16); // 0-15
+      const fakeEntry = baseCount + offset;
+      document.getElementById('popup-message').textContent = `You're entry number ${fakeEntry} on the list.`;
       document.getElementById('popup-modal').style.display = 'flex';
     }
   </script>
