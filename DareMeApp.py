@@ -5,7 +5,8 @@ import os
 app = Flask(__name__, static_url_path='', static_folder='.')
 CORS(app)
 
-waitlist_path = os.path.join(os.path.dirname(__file__), 'WaitList.txt')
+# Use a writable path for Render's file system
+waitlist_path = os.path.join('/tmp', 'WaitList.txt')
 
 @app.route('/')
 def serve_index():
